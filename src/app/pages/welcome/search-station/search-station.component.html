@@ -1,24 +1,16 @@
+<div style="margin-bottom: 2em">
 
-<nz-form-item>
-  <nz-form-control nzErrorTip="Non trovato" nzHasFeedback>
-    <nz-input-group nzPrefixIcon="home">
-      <input nz-input placeholder="Cerca stazioni"
-      (input)="onChange($event.target)"
-      [value]="searchSelection"
-      (focusout)="searchResult=[]" />
-    </nz-input-group>
-  </nz-form-control>
-</nz-form-item>
+  <input nz-input [placeholder]="placeholder"
+    [ngModel]="searchSelection"
+    (input)="onChange($event.target)"
+    />
 
-<nz-list nzBordered >
-  <nz-radio-group [(ngModel)]="searchSelection" style="width:100%">
+  <nz-list nzBordered *ngIf="show">
+    <nz-radio-group [(ngModel)]="searchSelection" (ngModelChange)="onSearchSelection($event)" style="width:100%">
+      <nz-list-item *ngFor="let i of searchResult">
+        <label nz-radio-button [nzValue]="i">{{i}}</label>
+      </nz-list-item>
+    </nz-radio-group>
+  </nz-list>
 
-    <nz-list-item *ngFor="let i of searchResult">
-      <!-- <span nz-typography><mark>[ITEM]</mark></span> -->
-      <label nz-radio [nzValue]="i">{{i}}</label>
-      <!-- {{ i }} -->
-    </nz-list-item>
-  </nz-radio-group>
-</nz-list>
-
-<hr *ngIf="searchResult.length">
+</div>

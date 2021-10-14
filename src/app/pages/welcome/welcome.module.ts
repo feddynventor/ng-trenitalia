@@ -13,6 +13,11 @@ import { NzFormModule } from 'ng-zorro-antd/form';
 import { SolutionsComponent } from './solutions/solutions.component';
 import { NzListModule } from 'ng-zorro-antd/list';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzTableModule } from 'ng-zorro-antd/table';
+import { ApifsInterceptor } from 'src/app/apifs.interceptor';
+import { HttpClientModule , HTTP_INTERCEPTORS } from '@angular/common/http';
+import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
+import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
 @NgModule({
   imports: [
@@ -22,11 +27,15 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
     NzFormModule,
     NzListModule,
     NzRadioModule,
+    NzTableModule,
+    NzTimePickerModule,
+    NzDatePickerModule,
     FormsModule,
     CommonModule,
+    HttpClientModule
   ],
   declarations: [WelcomeComponent, SearchStationComponent, SolutionsComponent],
-  providers: [ApifsService],
+  providers: [ApifsService, { provide: HTTP_INTERCEPTORS, useClass: ApifsInterceptor, multi: true }],
   exports: [WelcomeComponent]
 })
 export class WelcomeModule { }

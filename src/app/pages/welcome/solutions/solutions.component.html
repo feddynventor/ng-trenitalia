@@ -1,2 +1,29 @@
-<app-search-station (search)="onSearchStart($event)"></app-search-station>
-<app-search-station (search)="onSearchDestination($event)"></app-search-station>
+<app-search-station (search)="onSearchStart($event)" placeholder="Partenza"></app-search-station>
+<app-search-station (search)="onSearchDestination($event)" placeholder="Arrivo"></app-search-station>
+
+<div style="margin-top: 2em">
+  <nz-date-picker [(ngModel)]="date" [nzShowToday] [nzFormat]="'dd/mm/yyyy'"></nz-date-picker>
+  <nz-time-picker [(ngModel)]="time" nzFormat="HH:mm"></nz-time-picker>
+</div>
+
+<button style="margin-top: 2em" nz-button nzType="primary" nzBlock (click)="onSearch()" [nzLoading]="isFetching">Cerca</button>
+
+<hr *ngIf="solutions.length">
+<nz-table #basicTable [nzData]="solutions" *ngIf="solutions.length">
+  <thead>
+    <tr>
+      <th>Treno</th>
+      <th>Partenza</th>
+      <th>Arrivo</th>
+      <th>Prezzo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let sol of solutions">
+      <td>{{ sol.train[0].trainidentifier }}</td>
+      <td>{{ sol.departuretime }}</td>
+      <td>{{ sol.arrivaltime }}</td>
+      <td>{{ '€'+sol.originalPrice.toFixed(2) }}</td>
+    </tr>
+  </tbody>
+</nz-table>

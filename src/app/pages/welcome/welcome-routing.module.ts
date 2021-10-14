@@ -5,7 +5,8 @@ import { SolutionsComponent } from './solutions/solutions.component';
 import { WelcomeComponent } from './welcome.component';
 
 const routes: Routes = [
-  { path: '', component: WelcomeComponent },
+  // { path: '', component: WelcomeComponent },
+  { path: '', redirectTo: 'solutions' },
   { path: 'search', component: SearchStationComponent },
   { path: 'solutions', component: SolutionsComponent },
 ];
